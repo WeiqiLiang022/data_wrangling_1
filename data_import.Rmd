@@ -10,3 +10,74 @@ library(tidyverse)
 
 This document will show how to import data.
 
+## Import the FAS Litters CSV
+
+```{r}
+litters_df = read.csv(file = "./data_import_examples/FAS_litters.csv")
+
+litters_df = janitor::clean_names(litters_df)
+
+```
+
+```{r}
+litters_df
+
+head(litters_df)
+tail(litters_df)
+```
+
+```{r eval=FALSE}
+view(litters_df)
+```
+
+## Import the FAS_pups
+
+```{r}
+pups_df = read.csv(file = "./data_import_examples/FAS_pups.csv")
+
+pups_df = janitor::clean_names(pups_df)
+
+```
+
+## Look at read_csv options
+
+col_names and skipping rows
+
+```{r}
+litters_df =
+  read.csv(
+    file = "./data_import_examples/FAS_litters.csv",
+    skip = 2
+  )
+```
+
+what about missing data
+```{r}
+litters_df =
+  read.csv(
+    file = "./data_import_examples/FAS_litters.csv",
+    na = c("NA","",".")
+  )
+
+litters_df = janitor::clean_names(litters_df)
+
+pull(litters_df, gd0_weight)
+```
+
+What if we code 'group' as a factor variable?
+
+```{r}
+litters_df =
+  read_csv(
+    file = "./data_import_examples/FAS_litters.csv",
+    na = c("NA","","."),
+    col_types = cols(
+      Group = col_factor()
+    )
+  )
+```
+
+
+
+
+
